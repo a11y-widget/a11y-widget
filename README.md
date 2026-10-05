@@ -2,6 +2,8 @@
 
 A standalone accessibility panel for any website. One script, no dependencies, no network calls, nothing sent anywhere. Preferences stay in the visitor's browser.
 
+**New here? Read [INSTALL.md](INSTALL.md)**: supported platforms, step-by-step installation for WordPress, Shopify, Wix, Next.js and others, how visitors use the panel, the statement template, privacy wording and troubleshooting.
+
 ```html
 <script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js" data-statement="/accessibility" data-color="#1f3a93"></script>
 ```
