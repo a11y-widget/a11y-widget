@@ -1,0 +1,33 @@
+{% comment %}
+  Accessibility panel (a11y-widget) for Shopify Online Store 2.0 themes.
+  https://github.com/skychengtian/a11y-widget
+
+  Install:
+    1. Online Store → Themes → … → Edit code.
+    2. Snippets → Add a new snippet → name it "a11y-widget" and paste this file.
+    3. Open layout/theme.liquid and add, just before </body>:
+         {% render 'a11y-widget' %}
+    4. Optional: create a page "Accessibility" (Online Store → Pages) and set
+       the handle below so the panel links to it.
+
+  Edit the four assign lines to match your brand. The accent gets white text
+  drawn on it, so choose a colour with at least 4.5:1 contrast against white.
+{% endcomment %}
+
+{%- assign a11yw_color     = '#1f3a93' -%}   {%- comment -%} accent: button, selected controls {%- endcomment -%}
+{%- assign a11yw_ink       = '#262b33' -%}   {%- comment -%} panel text colour {%- endcomment -%}
+{%- assign a11yw_accent    = '#f3c552' -%}   {%- comment -%} "settings active" dots {%- endcomment -%}
+{%- assign a11yw_position  = 'right'   -%}   {%- comment -%} 'right' or 'left' (pick the side without a chat bubble) {%- endcomment -%}
+{%- assign a11yw_statement = pages['accessibility'].url -%}
+
+{%- comment -%} Shopify sets <html lang="{{ request.locale.iso_code }}">, so the panel follows the storefront language. {%- endcomment -%}
+<script
+  src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js"
+  defer
+  data-color="{{ a11yw_color }}"
+  data-ink="{{ a11yw_ink }}"
+  data-accent="{{ a11yw_accent }}"
+  data-position="{{ a11yw_position }}"
+  data-main="#MainContent, main, [role=main]"
+  {% if a11yw_statement != blank %}data-statement="{{ a11yw_statement }}"{% endif %}
+></script>

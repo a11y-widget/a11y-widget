@@ -15,27 +15,35 @@
  *  data-css         "off" to skip injecting styles (then link a11y-widget.css yourself, e.g. under a strict CSP)
  *  data-shortcut    "off" to disable the Alt+Shift+A shortcut
  *
- *  window.A11yWidget: open(), close(), toggle(), reset(), set(partialState), get(), destroy()
+ *  Alternatively set window.A11yWidgetConfig = { statement: '/accessibility', color: '#1f3a93', ... }
+ *  before the script loads (same keys as the data attributes, camelCase). Useful on platforms whose
+ *  script loaders cannot add attributes to the tag (WordPress wp_enqueue_script, some tag managers).
+ *
+ *  window.A11yWidget: open(tab?), close(), toggle(), reset(), set(partialState), get(), destroy()
  */
 (function (global) {
   'use strict';
   if (global.A11yWidget && global.A11yWidget.__loaded) return;
 
   var script = document.currentScript || (function () { var s = document.getElementsByTagName('script'); return s[s.length - 1]; })();
-  var ds = (script && script.dataset) || {};
+  var ds = {};
+  var attrs = (script && script.dataset) || {};
+  var winCfg = global.A11yWidgetConfig || {};
+  Object.keys(attrs).forEach(function (k) { ds[k] = attrs[k]; });
+  Object.keys(winCfg).forEach(function (k) { if (winCfg[k] !== undefined && winCfg[k] !== null) ds[k] = String(winCfg[k]); });
   var root = document.documentElement;
   var CFG = {
     lang: ds.lang || '',
     position: ds.position === 'left' ? 'left' : 'right',
     statement: ds.statement || '',
-    main: ds.main || '#main, main, [role=main]',
+    main: ds.main || '#main, main, [role=main], #content, #primary',
     color: ds.color || '#1f3a93',
     ink: ds.ink || '#262b33',
     accent: ds.accent || '#f3c552',
     key: ds.key || 'a11y-widget',
     z: ds.z || '2147483000',
-    css: ds.css !== 'off',
-    shortcut: ds.shortcut !== 'off'
+    css: ds.css !== 'off' && ds.css !== 'false',
+    shortcut: ds.shortcut !== 'off' && ds.shortcut !== 'false'
   };
   var HIDE_KEY = CFG.key + '-hidden';
   var P = 'a11yw'; // class prefix

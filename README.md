@@ -55,6 +55,13 @@ All settings are `data-` attributes on the script tag.
 | `data-css` | on | `off` to skip injected styles and link `a11y-widget.css` yourself (for a strict Content Security Policy) |
 | `data-shortcut` | on | `off` to disable `Alt + Shift + A` |
 
+Configuration can also be given as an object before the script loads, with the same keys in camelCase. Useful where a script loader cannot add attributes to the tag (WordPress `wp_enqueue_script`, some tag managers):
+
+```html
+<script>window.A11yWidgetConfig = { statement: '/accessibility', color: '#1f3a93', position: 'left' };</script>
+<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js" defer></script>
+```
+
 A small JavaScript API is exposed as `window.A11yWidget` with `open(tab?)`, `close()`, `toggle()`, `reset()`, `get()`, `set(partialState)` and `destroy()`. `open('reading')` opens the panel on a given tab (`profiles`, `text`, `color`, `reading`, `tools`).
 
 ### Strict Content Security Policy
@@ -95,11 +102,32 @@ Embed snippets for common platforms:
 - **WordPress, Shopify, Webflow, Squarespace, Wix**: paste the script tag into the site's custom code / footer scripts setting.
 - **No code access**: a Google Tag Manager "Custom HTML" tag containing the script tag.
 
+## Platforms
+
+Ready-made installs live in [`platforms/`](platforms/):
+
+| Platform | What you get | Guide |
+| --- | --- | --- |
+| WordPress | A plugin with a settings page (colours, position, statement URL). Upload the zip, activate, done. | [platforms/wordpress](platforms/wordpress/README.md) |
+| Shopify | A Liquid snippet with the settings at the top and a one-line `{% render %}` for `theme.liquid`. | [platforms/shopify](platforms/shopify/README.md) |
+| Wix | A paste-in snippet for **Settings → Custom Code** (Premium plan with a connected domain). | [platforms/wix](platforms/wix/README.md) |
+| Next.js | `<Script strategy="beforeInteractive">` in the root layout or `_document`. | see above |
+| Anything else | The script tag, or a Google Tag Manager "Custom HTML" tag. | see above |
+
+Each guide ends with the same two reminders: pick the corner that does not already hold a chat bubble, and add one sentence to your privacy policy saying the panel script comes from the jsDelivr CDN and stores preferences in the visitor's browser only.
+
+## Statement template
+
+The panel links to an accessibility statement page. A short one is enough:
+
+> **Accessibility.** [Organisation] wants everyone to be able to use this website, including people who rely on screen readers, keyboard navigation, magnification or other assistive technology. We design to WCAG 2.1 Level AA. Every page has an accessibility panel in the lower corner (or press Alt + Shift + A) for text size, contrast, reading aids and read-aloud; your choices stay in your browser and are never sent to us. If you encounter a barrier, email [address] with the page, what you were trying to do, and the browser or assistive technology you were using. We aim to respond within five business days.
+
 ## Files
 
 - `a11y-widget.js` — the widget, styles embedded
 - `a11y-widget.css` — the same styles as a file, for strict-CSP sites (generated from the JS by `npm run build`)
 - `demo/index.html` — a sample page
+- `platforms/` — WordPress plugin (source and zip), Shopify snippet, Wix instructions
 
 ## Privacy
 
