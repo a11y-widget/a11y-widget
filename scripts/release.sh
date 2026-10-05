@@ -48,4 +48,4 @@ echo
 echo "Released v$NEW."
 echo "  Vercel deploys from the push:   https://a11ywidget.vercel.app/v1/a11y-widget.js"
 echo "  jsDelivr pinned URL:            https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@$NEW/a11y-widget.js"
-echo "  Pinned consumers (Sky Trading) need the new version and integrity hashes; see MAINTAINING.md § 3."
+echo "  Sites on a pinned URL need the new version and integrity hashes; see MAINTAINING.md § 3."

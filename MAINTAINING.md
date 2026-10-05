@@ -97,7 +97,6 @@ Prefix each with `sha384-`.
 | --- | --- | --- | --- |
 | paimo.io | `PAiMo-io/paimo-landing`, `src/app/layout.tsx` | Vercel `/v1/` | Nothing. Updates automatically. |
 | pivclub.org | `PAiMo-io/pivclub`, `src/pages/_document.tsx` | Vercel `/v1/` | Nothing. Updates automatically. |
-| skytradingus.com | `a11y-widget/skytrading` (generated from `~/Github/sky-trading-vercel/build.py`) | jsDelivr pinned, with integrity hashes, under a strict CSP | In `build.py`: bump the version in both the JS and CSS URLs and replace both `integrity` values. Run `python3 -B build.py`, copy `dist/` into the skytrading repo, commit, push. |
 | 1stbouquet (Shopify) | `1stbouquet/1stbouquet.com`, `assets/a11y-widget.js` | Vendored file in the theme (Shopify CDN) | Copy the new `a11y-widget.js` over `assets/a11y-widget.js`, update the version note in `snippets/accessibility-panel.liquid`, open a PR. The theme's settings live under Theme settings → Accessibility panel. |
 | WordPress sites with the plugin | Plugin settings page | Vercel `/v1/` on the Automatic channel (default); jsDelivr pinned on the Pinned channel | Automatic: nothing. Pinned: the site updates the plugin. |
 | Wix / others on the `/v1/` URL | Site's custom code | Vercel `/v1/` | Nothing. |
