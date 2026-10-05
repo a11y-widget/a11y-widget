@@ -7,7 +7,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/v1/:file", "destination": "/:file" },
-    { "source": "/", "destination": "/demo/index.html" }
+    { "source": "/", "destination": "/demo" }
   ],
   "headers": [
     {

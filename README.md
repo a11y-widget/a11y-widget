@@ -3,10 +3,10 @@
 A standalone accessibility panel for any website. One script, no dependencies, no network calls, nothing sent anywhere. Preferences stay in the visitor's browser.
 
 ```html
-<script src="/a11y-widget.js" data-statement="/accessibility" data-color="#1f3a93"></script>
+<script src="https://a11ywidget.vercel.app/v1/a11y-widget.js" data-statement="/accessibility" data-color="#1f3a93"></script>
 ```
 
-That is the whole installation. The script injects its own styles, adds a round button in the lower corner, and remembers the visitor's choices across pages.
+That is the whole installation. The hosted copy lives at **https://a11ywidget.vercel.app** (Vercel, project `a11y-widget`). `/v1/a11y-widget.js` follows the latest 1.x release; `/a11y-widget.js` is the same file. For a strict Content Security Policy, download the file and serve it from your own origin instead. The script injects its own styles, adds a round button in the lower corner, and remembers the visitor's choices across pages.
 
 The panel is organised in five tabs so only one short section is on screen at a time: **Profiles** (one-tap presets, each with a plain-language description), **Text**, **Color**, **Reading** (a grid of icon tiles) and **Tools**. Tabs that hold active settings show a small dot, the last tab you used is remembered for the session, and the tab bar is keyboard-operable with the arrow keys.
 
@@ -65,6 +65,17 @@ import Script from "next/script";
 ```
 
 Add `suppressHydrationWarning` to `<html>` so React does not complain about the mode classes the script sets before hydration.
+
+## Hosting and updates
+
+The repository deploys to Vercel as a static site. Pushing to `main` (or running `vercel --prod`) publishes a new version; every site loading the hosted URL picks it up within the cache window (5 minutes at the browser, 1 hour at the edge). The demo is served at the root of the host. Deployment Protection is disabled on this project on purpose: the script must be publicly fetchable.
+
+Embed snippets for common platforms:
+
+- **Plain HTML**: the script tag above, before `</body>`.
+- **Next.js**: `<Script src="https://a11ywidget.vercel.app/v1/a11y-widget.js" strategy="beforeInteractive" data-statement="/accessibility" />` in the root layout, and `suppressHydrationWarning` on `<html>`.
+- **WordPress, Shopify, Webflow, Squarespace, Wix**: paste the script tag into the site's custom code / footer scripts setting.
+- **No code access**: a Google Tag Manager "Custom HTML" tag containing the script tag.
 
 ## Files
 
