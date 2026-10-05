@@ -227,9 +227,9 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
 .a11yw .a11yw-profile[aria-pressed=true]:hover{background:var(--a11yw-primary);color:#fff}
 .a11yw .a11yw-profile[aria-pressed=true]:hover .a11yw-profile-text strong,.a11yw .a11yw-profile[aria-pressed=true]:hover .a11yw-profile-text small{color:#fff}
 .a11yw-profile[aria-pressed=true]{background:var(--a11yw-primary);color:#fff;border-color:var(--a11yw-primary)}
-.a11yw-row{display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:8px;padding:2px 0 10px}
+.a11yw-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:center;gap:8px;padding:2px 0 10px}
 .a11yw-label{font-size:14px;color:var(--a11yw-ink);font-weight:500;padding-left:2px}
-.a11yw-step{width:40px;height:40px;min-width:40px;border:1px solid var(--a11yw-tint2);background:var(--a11yw-tint);color:var(--a11yw-primary);font-size:15px;font-weight:700;line-height:1;cursor:pointer;border-radius:50%;transition:background .2s,color .2s}
+.a11yw .a11yw-step{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;min-width:40px;max-width:40px;min-height:40px;padding:0;margin:0;-webkit-appearance:none;appearance:none;text-transform:none;letter-spacing:0;white-space:nowrap;box-shadow:none;border:1px solid var(--a11yw-tint2);background:var(--a11yw-tint);color:var(--a11yw-primary);font-size:15px;font-weight:700;line-height:1;cursor:pointer;border-radius:50%;transition:background .2s,color .2s}
 .a11yw .a11yw-step:hover:not(:disabled){background:var(--a11yw-primary);color:#fff}
 .a11yw-step:disabled{opacity:.35;cursor:default}
 .a11yw-output{min-width:52px;text-align:center;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
@@ -278,7 +278,8 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
 .a11yw .a11yw-statement:hover{color:var(--a11yw-primary);border-bottom-color:var(--a11yw-primary);text-decoration:none}
 .a11yw button:focus-visible,.a11yw a:focus-visible{outline:2.5px solid var(--a11yw-primary);outline-offset:2px}
 @supports not (color:color-mix(in srgb,#000 10%,#fff)){.a11yw{--a11yw-grey:#e9edf4;--a11yw-rule:#dfe4ec;--a11yw-line:#cfd6e1;--a11yw-text2:#525c6b;--a11yw-track:#aab4c2;--a11yw-tint:#e8ecf7;--a11yw-tint2:#cfd8ee}}
-@media (max-width:480px){.a11yw{right:14px;bottom:14px}.a11yw.a11yw-left{left:14px}.a11yw-panel{bottom:70px;width:calc(100vw - 28px);padding:14px;border-radius:22px}.a11yw-tab{font-size:12px;padding:4px 2px}}
+@media (max-width:480px){.a11yw{right:14px;bottom:14px}.a11yw.a11yw-left{left:14px}.a11yw-panel{bottom:70px;width:calc(100vw - 28px);padding:14px;border-radius:22px}.a11yw-tab{flex:1 1 auto;min-width:0;font-size:12px;padding:4px 2px}.a11yw-seg-btn{flex:1 1 auto;min-width:0;padding:4px 4px}}
+@media (max-width:360px){.a11yw-tab{font-size:11px;padding:4px 1px}.a11yw-seg-btn{font-size:12px;padding:4px 2px}.a11yw-panel{padding:12px}}
 @media (prefers-reduced-motion:reduce){.a11yw *,.a11yw-toggle{transition:none!important}.a11yw-toggle:hover{transform:none}}
 @media (forced-colors:active){.a11yw-toggle,.a11yw-option,.a11yw-profile,.a11yw-seg-btn,.a11yw-step,.a11yw-reset,.a11yw-link{border:1px solid ButtonText}.a11yw-option::after{border:1px solid ButtonText}}
 @media print{.a11yw,.a11yw-guide-bar,.a11yw-mask-pane{display:none!important}}
@@ -432,8 +433,10 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
   }
 
   /* ------------------------------------------------------------------ read aloud */
-  var speech = { items: [], i: 0, active: false, current: null };
+  var speech = { items: [], i: 0, active: false, current: null, utter: null, held: false };
   var canSpeak = 'speechSynthesis' in global && 'SpeechSynthesisUtterance' in global;
+  // Android Chrome has no working speechSynthesis.pause(), so pausing there cancels and resume re-reads the paragraph.
+  var softPause = /Android/i.test(navigator.userAgent);
   /* Browsers register voices under BCP-47 tags such as zh-CN, not zh-Hans or bare zh.
      Normalise the page language so a matching voice is found instead of the default. */
   function speechLang(code) {
@@ -465,7 +468,8 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
     if (!canSpeak) return cb();
     if ((global.speechSynthesis.getVoices() || []).length) return cb();
     var done = false, finish = function () { if (!done) { done = true; cb(); } };
-    global.speechSynthesis.addEventListener('voiceschanged', finish, { once: true });
+    try { global.speechSynthesis.addEventListener('voiceschanged', finish, { once: true }); }
+    catch (x) { global.speechSynthesis.onvoiceschanged = finish; } // older Safari: not an EventTarget
     setTimeout(finish, 1200);
   }
   function readable() {
@@ -491,14 +495,25 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
     u.lang = speechLang(scope ? scope.getAttribute('lang') : (root.getAttribute('lang') || t.lang));
     var voice = pickVoice(u.lang); if (voice) { u.voice = voice; u.lang = voice.lang; }
     u.rate = 1; u.pitch = 1;
-    u.onend = function () { if (speech.active) { speech.i++; speakNext(); } };
-    u.onerror = function () { stopReading(); };
+    // Callbacks from a cancelled utterance arrive late; only the current one may advance or stop.
+    u.onend = function () {
+      if (!speech.active || u !== speech.utter) return;
+      speech.i++;
+      if (speech.held) speech.utter = null; else speakNext(); // ended just as Pause was tapped: resume starts the next one
+    };
+    u.onerror = function (e) { if (u !== speech.utter || speech.held || e.error === 'interrupted' || e.error === 'canceled') return; stopReading(); };
+    speech.utter = u; // keep a reference: mobile engines drop onend for garbage-collected utterances
+    global.speechSynthesis.resume(); // clears a stuck paused state left by pause() or a cancelled utterance
     global.speechSynthesis.speak(u);
   }
   function startReading() {
     if (!canSpeak) return;
-    global.speechSynthesis.cancel();
-    speech.items = readable(); speech.i = 0; speech.active = true;
+    var synth = global.speechSynthesis;
+    if (synth.speaking || synth.pending) synth.cancel();
+    // iOS only allows speech that starts inside the tap. When voices are still loading, the
+    // first paragraph would be spoken after the tap has ended and be ignored, so unlock now.
+    if (!(synth.getVoices() || []).length) { var unlock = new SpeechSynthesisUtterance(' '); unlock.volume = 0; synth.speak(unlock); }
+    speech.items = readable(); speech.i = 0; speech.active = true; speech.held = false;
     ui.readLabel.textContent = t.stop; ui.read.setAttribute('aria-pressed', 'true'); ui.pause.hidden = false; ui.pause.textContent = t.pause;
     whenVoicesReady(function () {
       if (!speech.active) return;
@@ -517,14 +532,20 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
     });
   }
   function stopReading() {
-    speech.active = false; mark(null);
+    speech.active = false; speech.held = false; speech.utter = null; mark(null);
     if (canSpeak) global.speechSynthesis.cancel();
     if (ui) { ui.readLabel.textContent = t.read; ui.read.setAttribute('aria-pressed', 'false'); ui.pause.hidden = true; }
   }
   function togglePause() {
     if (!speech.active) return;
-    if (global.speechSynthesis.paused) { global.speechSynthesis.resume(); ui.pause.textContent = t.pause; }
-    else { global.speechSynthesis.pause(); ui.pause.textContent = t.resume; }
+    var synth = global.speechSynthesis;
+    if (speech.held) {
+      speech.held = false; ui.pause.textContent = t.pause;
+      if (softPause || !speech.utter) speakNext(); else synth.resume();
+    } else {
+      speech.held = true; ui.pause.textContent = t.resume;
+      if (softPause) synth.cancel(); else synth.pause();
+    }
   }
   global.addEventListener('pagehide', stopReading);
 

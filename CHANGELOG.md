@@ -4,6 +4,10 @@ All notable changes to a11y-widget. Versions are semantic; the hosted `/v1/` URL
 
 ## Unreleased
 
+- Read-aloud works on phones. On iOS, speech is unlocked inside the tap, so the first paragraph is no longer ignored while voices load. Each utterance is kept referenced so mobile engines keep advancing to the next paragraph. Callbacks from cancelled utterances are ignored instead of stopping the reading. Android, which has no working pause, pauses by cancelling and resumes from the current paragraph.
+- The text-size buttons (A−, A+) reset padding and appearance, so host-site button styles can no longer stretch them or push the label out of the circle.
+- On screens 480px and narrower, tabs and segmented buttons size to their labels, with tighter spacing below 360px, so longer translations (Spanish "Herramientas", "Derecha") stay inside the panel.
+
 ## 1.1.2 — 2026-10-04
 
 - Read-aloud shows a notice when the browser lists voices but none for the page language, instead of reading with the default (usually English) voice. Notice in all four languages.
