@@ -4,7 +4,7 @@ A self-contained accessibility panel for any website. One script tag adds a roun
 
 - Live demo: https://a11ywidget.vercel.app
 - Source and releases: https://github.com/a11y-widget/a11y-widget
-- Current release: `1.1.2`.
+- Current release: `1.1.3`.
 - Automatic-update URL: `https://a11ywidget.vercel.app/v1/a11y-widget.js` (recommended; see Section 8)
 
 ---
@@ -218,9 +218,9 @@ If your CSP has `style-src 'self'` without `'unsafe-inline'` or a nonce, the inj
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.2/a11y-widget.css"
+      href="https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.3/a11y-widget.css"
       integrity="sha384-…" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.2/a11y-widget.js"
+<script src="https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.3/a11y-widget.js"
         integrity="sha384-…" crossorigin="anonymous"
         data-css="off" data-color="#1f3a93" data-statement="/accessibility"></script>
 ```
@@ -228,7 +228,7 @@ If your CSP has `style-src 'self'` without `'unsafe-inline'` or a nonce, the inj
 Allow the CDN in your policy: `script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net`. Compute each hash with:
 
 ```
-curl -s https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.2/a11y-widget.js | openssl dgst -sha384 -binary | openssl base64 -A
+curl -s https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.3/a11y-widget.js | openssl dgst -sha384 -binary | openssl base64 -A
 ```
 
 Integrity hashes only work with a pinned version. When you upgrade, change the version and both hashes together. If you use CSP nonces instead, the script copies its own `nonce` attribute onto the injected style tag, so the simple install works.

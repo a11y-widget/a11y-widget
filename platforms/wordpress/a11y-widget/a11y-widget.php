@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'A11YW_VERSION', '1.2.1' );
-define( 'A11YW_WIDGET_VERSION', '1.1.2' ); // widget release this plugin was tested with (used by the Pinned channel)
+define( 'A11YW_WIDGET_VERSION', '1.1.3' ); // widget release this plugin was tested with (used by the Pinned channel)
 define( 'A11YW_URL_AUTO', 'https://a11ywidget.vercel.app/v1/a11y-widget.js' ); // latest release, 5-minute browser cache
 define( 'A11YW_URL_PINNED', 'https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@' . A11YW_WIDGET_VERSION . '/a11y-widget.js' );
 

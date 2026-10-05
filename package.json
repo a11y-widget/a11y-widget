@@ -1,6 +1,6 @@
 {
   "name": "a11y-widget",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Standalone accessibility panel for any website. One script, no dependencies, no network calls.",
   "main": "a11y-widget.js",
   "files": [

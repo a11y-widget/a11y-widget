@@ -6,7 +6,7 @@ A standalone accessibility panel for any website. One script tag, no dependencie
 - **Install guide (all platforms):** [INSTALL.md](INSTALL.md)
 - **Maintainer guide (releases, hosting, sites):** [MAINTAINING.md](MAINTAINING.md)
 - **Changelog:** [CHANGELOG.md](CHANGELOG.md)
-- **Current release:** 1.1.2
+- **Current release:** 1.1.3
 
 ## Quick start
 
@@ -24,7 +24,7 @@ Put that before `</body>`. A round button appears in the lower-right corner. Eve
 | URL | Use it when |
 | --- | --- |
 | `https://a11ywidget.vercel.app/v1/a11y-widget.js` | **Default.** Always the latest 1.x release, with a 5-minute browser cache, so fixes reach visitors within minutes. |
-| `https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.2/a11y-widget.js` | You want to approve each update yourself, or you need `integrity` hashes under a strict Content Security Policy. Pair with `.../a11y-widget.css` and `data-css="off"`. |
+| `https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.3/a11y-widget.js` | You want to approve each update yourself, or you need `integrity` hashes under a strict Content Security Policy. Pair with `.../a11y-widget.css` and `data-css="off"`. |
 
 ## What visitors get
 
