@@ -30,3 +30,20 @@ jobs:
           php -l platforms/wordpress/a11y-widget/a11y-widget.php
       - name: Every label key exists in all four languages
         run: node scripts/check-labels.js
+
+  deploy:
+    # Production deploy to Vercel (a11ywidget.vercel.app, which serves /v1/). Runs only after every check passes.
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency: vercel-production
+    env:
+      VERCEL_ORG_ID: team_MXor689hUbyaD4nRYPe8mAL6
+      VERCEL_PROJECT_ID: prj_blwfE22sXFkNdXAHDaeyllgpsu2E
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Deploy to Vercel production
+        run: npx --yes vercel@latest deploy --prod --yes --token="${{ secrets.VERCEL_TOKEN }}"

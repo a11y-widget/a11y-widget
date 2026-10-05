@@ -24,6 +24,6 @@ Standalone accessibility panel for any website: one script, no dependencies, no 
 
 ## Things to know
 
-- Pushing to `main` deploys to Vercel, and `https://a11ywidget.vercel.app/v1/` goes live on every site that uses it within minutes. Treat a push as a release.
+- Pushing to `main` deploys to Vercel through GitHub Actions (the `deploy` job runs after the checks pass), and `https://a11ywidget.vercel.app/v1/` goes live on every site that uses it within minutes. Treat a push as a release.
 - Host sites style buttons and text aggressively. Panel rules that matter (padding, appearance, colours) use `.a11yw .a11yw-…` specificity so theme CSS cannot override them.
 - Check layout at phone widths (320–390px) in all four languages; Spanish labels are the longest.

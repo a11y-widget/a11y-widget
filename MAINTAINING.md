@@ -11,7 +11,7 @@ For whoever maintains this repository. Covers how the pieces fit together, how t
 | Source | `a11y-widget.js` | One file. The CSS lives inside it between `/*A11YW_CSS_START*/` and `/*A11YW_CSS_END*/` so a single script tag works everywhere. |
 | Stylesheet file | `a11y-widget.css` | Generated from the JS by `node build.js`. Never edit it by hand. It exists for strict-CSP sites that link CSS instead of allowing an injected `<style>`. |
 | Demo | `demo/index.html` | Served at the root of the Vercel host. |
-| Hosting | Vercel project `a11y-widget` (team et-digital) | Connected to this GitHub repository: every push to `main` deploys. Config in `vercel.json`. Domain: https://a11ywidget.vercel.app |
+| Hosting | Vercel project `a11y-widget` (team et-digital) | Deployed by GitHub Actions (`deploy` job in `.github/workflows/check.yml`): every push to `main` deploys to production after the checks pass. Needs the repository secret `VERCEL_TOKEN`. The project has no Git connection in Vercel. Config in `vercel.json`. Domain: https://a11ywidget.vercel.app |
 | CDN | jsDelivr | Serves any tag: `https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@<tag>/a11y-widget.js`. Nothing to configure. |
 | WordPress plugin | `platforms/wordpress/a11y-widget/` + `a11y-widget.zip` | The zip is committed so it can be downloaded from the Vercel host. Rebuild it whenever the plugin source changes. |
 | Shopify snippet | `platforms/shopify/a11y-widget.liquid` | Reference snippet. The 1stbouquet theme vendors the JS into its `assets/` instead. |
@@ -52,7 +52,7 @@ One command does the whole thing:
 scripts/release.sh 1.1.3
 ```
 
-It bumps `package.json`, updates pinned URLs in the docs and the plugin's bundled version, rebuilds the CSS and the plugin zip, moves the "Unreleased" changelog section under the new version, commits, tags `v1.1.3` and pushes `main` with tags. Vercel deploys from the push; jsDelivr serves the tag within a couple of minutes.
+It bumps `package.json`, updates pinned URLs in the docs and the plugin's bundled version, rebuilds the CSS and the plugin zip, moves the "Unreleased" changelog section under the new version, commits, tags `v1.1.3` and pushes `main` with tags. GitHub Actions deploys to Vercel once the checks pass; jsDelivr serves the tag within a couple of minutes.
 
 Manual equivalent, if you need it:
 
@@ -109,7 +109,7 @@ Why the split: sites with a strict Content Security Policy need integrity hashes
 
 - **Vercel project**: `a11y-widget`, team `et-digital`, domains `a11ywidget.vercel.app`, `a11y-widget-five.vercel.app`, `a11y-widget-et-digital.vercel.app`. Static, no build step (`vercel.json`: `outputDirectory: "."`, `cleanUrls`, `/v1/:file` rewrite, root rewrite to `/demo`). Deployment Protection is **off** on purpose: the script must be publicly fetchable.
 - **Headers** (`vercel.json`): `.js`/`.css` get `Access-Control-Allow-Origin: *`, `Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400`, `nosniff`. Everything gets `X-Frame-Options: SAMEORIGIN` and a referrer policy.
-- **Git integration**: connected via `vercel git connect`. If it ever disconnects, `vercel deploy --prod --yes` from the repo root deploys manually.
+- **Deploys**: GitHub Actions only (`deploy` job). Create the token at vercel.com/account/tokens (scope: team et-digital) and store it as the repository secret `VERCEL_TOKEN`. If Actions is unavailable, `vercel deploy --prod --yes` from the repo root deploys manually. Do not reconnect Vercel's Git integration, or every push deploys twice.
 - **jsDelivr**: no account. Purge a path after a tag if needed: `curl https://purge.jsdelivr.net/gh/a11y-widget/a11y-widget@1/a11y-widget.js`. Pinned URLs never need purging.
 
 ---
