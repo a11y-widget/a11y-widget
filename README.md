@@ -31,6 +31,8 @@ The panel is organised in five tabs so only one short section is on screen at a 
 
 Labels switch automatically between English, Simplified Chinese, Spanish and Vietnamese based on `<html lang>`.
 
+The panel's neutral surfaces (pill backgrounds, borders, switch tracks) are derived from `data-color`, so the widget takes on the site's own cast rather than a generic grey. Pass `data-ink` and `data-accent` to match a brand's text and secondary colours exactly.
+
 ## Accessibility of the panel itself
 
 Modal dialog with a focus trap, `Escape` closes and returns focus, every toggle exposes `aria-pressed`, changes are announced through a live region, touch targets are at least 44px, and the panel is hidden in print. It never touches the page's own markup, headings or focus order; display modes are applied as classes on `<html>` with scoped CSS.
@@ -46,6 +48,8 @@ All settings are `data-` attributes on the script tag.
 | `data-statement` | none | URL of your accessibility statement, shown as a link in the panel |
 | `data-main` | `#main, main, [role=main]` | Selector for the main content, used by read-aloud and page structure |
 | `data-color` | `#1f3a93` | Accent colour for the button and controls |
+| `data-ink` | `#262b33` | Text colour inside the panel |
+| `data-accent` | `#f3c552` | Colour of the small "settings active" dots |
 | `data-key` | `a11y-widget` | `localStorage` key |
 | `data-z` | `2147483000` | z-index |
 | `data-css` | on | `off` to skip injected styles and link `a11y-widget.css` yourself (for a strict Content Security Policy) |
