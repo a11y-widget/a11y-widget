@@ -4,7 +4,8 @@ A self-contained accessibility panel for any website. One script tag adds a roun
 
 - Live demo: https://a11ywidget.vercel.app
 - Source and releases: https://github.com/skychengtian/a11y-widget
-- Current release: `1.1.2`. Pin the exact version in your script tag (see Section 8 for why).
+- Current release: `1.1.2`.
+- Automatic-update URL: `https://a11ywidget.vercel.app/v1/a11y-widget.js` (recommended; see Section 8)
 
 ---
 
@@ -33,7 +34,7 @@ Add this before `</body>` on every page:
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js"
+  src="https://a11ywidget.vercel.app/v1/a11y-widget.js"
   defer
   data-color="#1f3a93"
   data-statement="/accessibility">
@@ -72,7 +73,7 @@ Some script loaders cannot add attributes to a tag. Set the same options (camelC
 <script>
   window.A11yWidgetConfig = { color: '#1f3a93', position: 'left', statement: '/accessibility' };
 </script>
-<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js" defer></script>
+<script src="https://a11ywidget.vercel.app/v1/a11y-widget.js" defer></script>
 ```
 
 ### JavaScript API
@@ -155,7 +156,7 @@ export default function RootLayout({ children }) {
       <body>
         {children}
         <Script
-          src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js"
+          src="https://a11ywidget.vercel.app/v1/a11y-widget.js"
           strategy="beforeInteractive"
           data-color="#1f3a93"
           data-statement="/accessibility"
@@ -174,7 +175,7 @@ export default function RootLayout({ children }) {
 import Script from 'next/script';
 // ...
 <Script
-  src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js"
+  src="https://a11ywidget.vercel.app/v1/a11y-widget.js"
   strategy="beforeInteractive"
   data-color="#1f3a93"
   data-statement="/accessibility"
@@ -280,9 +281,10 @@ The widget sets no cookies, loads no fonts or images from third parties, and mak
 
 | Install | How updates arrive |
 | --- | --- |
-| Pinned `@1.1.2` (recommended, used in all guides) | Change the version in your tag when you want the new release. Each version has its own URL, so every visitor gets it on their next page load. With integrity hashes, recompute both hashes too. |
-| `@1` range | Not recommended for production. jsDelivr serves the newest 1.x release, but tells browsers to cache the file for 7 days, so returning visitors can keep an old build for up to a week after a fix. |
-| WordPress plugin | The plugin pins the widget to its own version. Update the plugin to get a new widget release. |
+| `https://a11ywidget.vercel.app/v1/a11y-widget.js` (used in all guides) | **Automatically.** Served from Vercel with a 5-minute browser cache; each release redeploys the host, so visitors have the new build within minutes. `/v1/` will keep serving the 1.x line if a 2.x is ever released. |
+| Pinned jsDelivr `@1.1.2` | Manually: change the version in your tag. Each version has its own URL, cached for a year. With integrity hashes, recompute both. Use this for strict-CSP sites or when you want to approve each update. |
+| jsDelivr `@1` range | Avoid. It follows releases, but browsers cache the URL for 7 days, so visitors can keep an old build for up to a week after a fix. |
+| WordPress plugin | Settings → Accessibility Panel → Update channel: **Automatic** (default) or **Pinned to the plugin's bundled version**. |
 
 Releases are tagged on GitHub: https://github.com/skychengtian/a11y-widget/releases
 
@@ -298,7 +300,7 @@ Releases are tagged on GitHub: https://github.com/skychengtian/a11y-widget/relea
 | Panel text is white on a pale accent | Choose a darker `data-color` with at least 4.5:1 contrast against white. |
 | Read aloud is greyed out | The browser has no speech engine (rare; some kiosk or privacy browsers). Nothing to fix on the site. |
 | Read aloud sounds like the wrong language | The device has no voice installed for the page language, so the engine falls back to its default voice. Since 1.1.2 the panel shows a notice instead of reading. The visitor adds a voice in their system settings (macOS: System Settings → Accessibility → Spoken Content; Windows: Settings → Time & Language → Speech). |
-| A fix was released but a site still behaves the old way | The site loads the `@1` range URL, which browsers cache for 7 days. Switch to a pinned version URL, or hard-refresh (Cmd/Ctrl + Shift + R) to test. |
+| A fix was released but a site still behaves the old way | The site loads a jsDelivr URL: the `@1` range is cached by browsers for 7 days and pinned versions never change. Switch to the automatic-update URL, or hard-refresh (Cmd/Ctrl + Shift + R) to test. |
 | Panel labels are in the wrong language | Set `<html lang>` correctly, or force it with `data-lang`. |
 | Saved settings do not persist | The visitor's browser blocks storage (private mode on some browsers). The panel still works for the session. |
 | Two panels appear | The script is included twice. The widget guards against this, but two different versions or two different `data-key` values will both mount. Remove one. |

@@ -9,7 +9,7 @@ Wix allows site-wide code through **Custom Code**, which requires a Premium plan
 
    ```html
    <script
-     src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js"
+     src="https://a11ywidget.vercel.app/v1/a11y-widget.js"
      defer
      data-color="#1f3a93"
      data-ink="#262b33"

@@ -5,18 +5,19 @@ A standalone accessibility panel for any website. One script, no dependencies, n
 **New here? Read [INSTALL.md](INSTALL.md)**: supported platforms, step-by-step installation for WordPress, Shopify, Wix, Next.js and others, how visitors use the panel, the statement template, privacy wording and troubleshooting.
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js" data-statement="/accessibility" data-color="#1f3a93"></script>
+<script src="https://a11ywidget.vercel.app/v1/a11y-widget.js" data-statement="/accessibility" data-color="#1f3a93"></script>
 ```
 
-That is the whole installation. The file is served by the jsDelivr CDN straight from this repository's release tags:
+That is the whole installation. Two ways to load the file:
 
 | URL | Behaviour |
 | --- | --- |
-| `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js` | **Recommended.** Pinned to one release; a new release means a new URL, so fixes reach every visitor on their next page load. |
+| `https://a11ywidget.vercel.app/v1/a11y-widget.js` | **Automatic updates (recommended).** Always the latest release, served from Vercel with a 5-minute browser cache; a new release reaches visitors within minutes. `/v1/` stays on the 1.x line. |
+| `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js` | **Pinned.** One exact release from the jsDelivr CDN, cached for a year. For sites that want to control when updates land, or that use integrity hashes under a strict Content Security Policy. |
 | `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.0.0/a11y-widget.js` | Pinned to one release. Use with an `integrity` hash on sites with a strict Content Security Policy. |
 | `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.css` | The stylesheet, for the `data-css="off"` mode. |
 
-A mirror with the live demo is at https://a11ywidget.vercel.app. The script injects its own styles, adds a round button in the lower corner, and remembers the visitor's choices across pages.
+The live demo is at https://a11ywidget.vercel.app. The script injects its own styles, adds a round button in the lower corner, and remembers the visitor's choices across pages.
 
 The panel is organised in five tabs so only one short section is on screen at a time: **Profiles** (one-tap presets, each with a plain-language description), **Text**, **Color**, **Reading** (a grid of icon tiles) and **Tools**. Tabs that hold active settings show a small dot, the last tab you used is remembered for the session, and the tab bar is keyboard-operable with the arrow keys.
 
@@ -61,7 +62,7 @@ Configuration can also be given as an object before the script loads, with the s
 
 ```html
 <script>window.A11yWidgetConfig = { statement: '/accessibility', color: '#1f3a93', position: 'left' };</script>
-<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js" defer></script>
+<script src="https://a11ywidget.vercel.app/v1/a11y-widget.js" defer></script>
 ```
 
 A small JavaScript API is exposed as `window.A11yWidget` with `open(tab?)`, `close()`, `toggle()`, `reset()`, `get()`, `set(partialState)` and `destroy()`. `open('reading')` opens the panel on a given tab (`profiles`, `text`, `color`, `reading`, `tools`).

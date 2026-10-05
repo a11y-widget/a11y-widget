@@ -3,7 +3,7 @@
  * Plugin Name:       Accessibility Panel (a11y-widget)
  * Plugin URI:        https://github.com/skychengtian/a11y-widget
  * Description:       Adds a self-hosted-style accessibility panel to every page: quick profiles, text size and spacing, contrast modes, reading aids, read-aloud and page structure. No tracking, no account. Settings → Accessibility Panel.
- * Version:           1.1.2
+ * Version:           1.2.0
  * Requires at least: 5.7
  * Requires PHP:      7.2
  * Author:            Sky Wei
@@ -15,9 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'A11YW_VERSION', '1.1.2' );
-// Pinned to the plugin version: each release has its own URL, so browser caches never serve a stale build.
-define( 'A11YW_CDN', 'https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@' . A11YW_VERSION . '/a11y-widget.js' );
+define( 'A11YW_VERSION', '1.2.0' );
+define( 'A11YW_WIDGET_VERSION', '1.1.2' ); // widget release this plugin was tested with (used by the Pinned channel)
+define( 'A11YW_URL_AUTO', 'https://a11ywidget.vercel.app/v1/a11y-widget.js' ); // latest release, 5-minute browser cache
+define( 'A11YW_URL_PINNED', 'https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@' . A11YW_WIDGET_VERSION . '/a11y-widget.js' );
 
 /**
  * Default settings.
@@ -32,6 +33,7 @@ function a11yw_defaults() {
 		'statement' => '',
 		'main'      => '',
 		'shortcut'  => 1,
+		'channel'   => 'auto',
 	);
 }
 
@@ -56,6 +58,7 @@ function a11yw_sanitize( $input ) {
 	}
 
 	$out['position']  = ( isset( $input['position'] ) && 'left' === $input['position'] ) ? 'left' : 'right';
+	$out['channel']   = ( isset( $input['channel'] ) && 'pinned' === $input['channel'] ) ? 'pinned' : 'auto';
 	$out['statement'] = isset( $input['statement'] ) ? esc_url_raw( trim( $input['statement'] ) ) : '';
 	$out['main']      = isset( $input['main'] ) ? sanitize_text_field( $input['main'] ) : '';
 
@@ -159,6 +162,13 @@ function a11yw_render_settings_page() {
 					</td>
 				</tr>
 				<tr>
+					<th scope="row"><?php esc_html_e( 'Update channel', 'a11y-widget' ); ?></th>
+					<td>
+						<label><input type="radio" name="a11yw_settings[channel]" value="auto" <?php checked( $s['channel'], 'auto' ); ?>> <?php esc_html_e( 'Automatic: always the latest release (recommended)', 'a11y-widget' ); ?></label><br>
+						<label><input type="radio" name="a11yw_settings[channel]" value="pinned" <?php checked( $s['channel'], 'pinned' ); ?>> <?php printf( esc_html__( 'Pinned: widget %s, updated only when you update this plugin', 'a11y-widget' ), esc_html( A11YW_WIDGET_VERSION ) ); ?></label>
+					</td>
+				</tr>
+				<tr>
 					<th scope="row"><?php esc_html_e( 'Keyboard shortcut', 'a11y-widget' ); ?></th>
 					<td><label><input type="checkbox" name="a11yw_settings[shortcut]" value="1" <?php checked( $s['shortcut'], 1 ); ?>> <?php esc_html_e( 'Allow Alt + Shift + A to open the panel', 'a11y-widget' ); ?></label></td>
 				</tr>
@@ -215,7 +225,7 @@ function a11yw_print_widget() {
 	echo '<script>window.A11yWidgetConfig=' . wp_json_encode( $config ) . ';</script>' . "\n";
 
 	// Site owners can self-host the file: add_filter( 'a11yw_script_url', fn() => '/wp-content/a11y-widget.js' );
-	$url   = apply_filters( 'a11yw_script_url', A11YW_CDN );
+	$url   = apply_filters( 'a11yw_script_url', 'pinned' === $s['channel'] ? A11YW_URL_PINNED : A11YW_URL_AUTO );
 	$attrs = array(
 		'src'   => $url,
 		'defer' => true,
