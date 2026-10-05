@@ -3,10 +3,18 @@
 A standalone accessibility panel for any website. One script, no dependencies, no network calls, nothing sent anywhere. Preferences stay in the visitor's browser.
 
 ```html
-<script src="https://a11ywidget.vercel.app/v1/a11y-widget.js" data-statement="/accessibility" data-color="#1f3a93"></script>
+<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js" data-statement="/accessibility" data-color="#1f3a93"></script>
 ```
 
-That is the whole installation. The hosted copy lives at **https://a11ywidget.vercel.app** (Vercel, project `a11y-widget`). `/v1/a11y-widget.js` follows the latest 1.x release; `/a11y-widget.js` is the same file. For a strict Content Security Policy, download the file and serve it from your own origin instead. The script injects its own styles, adds a round button in the lower corner, and remembers the visitor's choices across pages.
+That is the whole installation. The file is served by the jsDelivr CDN straight from this repository's release tags:
+
+| URL | Behaviour |
+| --- | --- |
+| `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js` | Latest 1.x release. New releases arrive automatically (jsDelivr caches ranges for up to 7 days). |
+| `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.0.0/a11y-widget.js` | Pinned to one release. Use with an `integrity` hash on sites with a strict Content Security Policy. |
+| `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.css` | The stylesheet, for the `data-css="off"` mode. |
+
+A mirror with the live demo is at https://a11ywidget.vercel.app. The script injects its own styles, adds a round button in the lower corner, and remembers the visitor's choices across pages.
 
 The panel is organised in five tabs so only one short section is on screen at a time: **Profiles** (one-tap presets, each with a plain-language description), **Text**, **Color**, **Reading** (a grid of icon tiles) and **Tools**. Tabs that hold active settings show a small dot, the last tab you used is remembered for the session, and the tab bar is keyboard-operable with the arrow keys.
 
@@ -68,12 +76,18 @@ Add `suppressHydrationWarning` to `<html>` so React does not complain about the 
 
 ## Hosting and updates
 
-The repository deploys to Vercel as a static site. Pushing to `main` (or running `vercel --prod`) publishes a new version; every site loading the hosted URL picks it up within the cache window (5 minutes at the browser, 1 hour at the edge). The demo is served at the root of the host. Deployment Protection is disabled on this project on purpose: the script must be publicly fetchable.
+**Releasing**: bump `version` in `package.json`, commit, then tag and push:
+
+```
+git tag v1.0.1 && git push origin main --tags
+```
+
+jsDelivr picks the tag up within minutes. Sites on the `@1` range update automatically; pinned sites update when you change the tag and `integrity` hash. The Vercel mirror (demo at the root) redeploys from `vercel --prod` or the connected GitHub repository.
 
 Embed snippets for common platforms:
 
 - **Plain HTML**: the script tag above, before `</body>`.
-- **Next.js**: `<Script src="https://a11ywidget.vercel.app/v1/a11y-widget.js" strategy="beforeInteractive" data-statement="/accessibility" />` in the root layout, and `suppressHydrationWarning` on `<html>`.
+- **Next.js**: `<Script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js" strategy="beforeInteractive" data-statement="/accessibility" />` in the root layout, and `suppressHydrationWarning` on `<html>`.
 - **WordPress, Shopify, Webflow, Squarespace, Wix**: paste the script tag into the site's custom code / footer scripts setting.
 - **No code access**: a Google Tag Manager "Custom HTML" tag containing the script tag.
 
