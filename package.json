@@ -1,0 +1,12 @@
+{
+  "name": "a11y-widget",
+  "version": "1.0.0",
+  "description": "Standalone accessibility panel for any website. One script, no dependencies, no network calls.",
+  "main": "a11y-widget.js",
+  "files": ["a11y-widget.js", "a11y-widget.css", "README.md"],
+  "scripts": {
+    "build": "node build.js",
+    "check": "node --check a11y-widget.js && node build.js"
+  },
+  "license": "MIT"
+}

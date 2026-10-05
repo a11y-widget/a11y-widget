@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>a11y-widget demo</title>
+  <style>
+    body{margin:0;font:17px/1.6 Georgia,serif;color:#222;background:#fafafa}
+    header,footer{background:#1f3a93;color:#fff;padding:24px}
+    nav a{color:#fff;margin-right:16px}
+    main{max-width:760px;margin:0 auto;padding:32px 24px}
+    .card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:20px;margin:16px 0;transition:transform .3s}
+    .card:hover{transform:translateY(-3px)}
+    .pulse{display:inline-block;width:14px;height:14px;border-radius:50%;background:#e0b43b;animation:pulse 1s infinite}
+    @keyframes pulse{50%{opacity:.2}}
+  </style>
+</head>
+<body>
+  <header><nav><a href="#">Home</a><a href="#about">About</a><a href="#contact">Contact</a></nav></header>
+  <main id="main">
+    <h1>a11y-widget demo</h1>
+    <p>Open the panel with the button in the corner or press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd>. Every option here applies to this page only in your browser.</p>
+    <h2 id="about">About</h2>
+    <div class="card"><h3>Profiles</h3><p>Try <em>Dyslexia &amp; reading</em> for a readable font, wider spacing and a reading guide, or <em>Seizure safe</em> to stop the <span class="pulse" aria-hidden="true"></span> animation and desaturate colours.</p></div>
+    <div class="card"><h3>Colour modes</h3><p>High contrast, dark and inverted modes are applied with scoped CSS on top of the page's own styles. <a href="#">Links</a> can be highlighted too.</p></div>
+    <div class="card"><h3>Tools</h3><p>Read page aloud uses the speech engine built into your browser. Page structure lists every heading and landmark on the page so you can jump straight to it.</p></div>
+    <h2 id="contact">Contact</h2>
+    <p>This is a demo page for the <a href="https://github.com/">a11y-widget</a> project.</p>
+    <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='120'%3E%3Crect width='320' height='120' fill='%23B6CEE8'/%3E%3Ctext x='20' y='70' font-size='28' fill='%23222'%3ESample image%3C/text%3E%3C/svg%3E" alt="Sample image placeholder" width="320" height="120">
+  </main>
+  <footer><p>© Demo. <a href="#a11y" style="color:#fff">Open the accessibility panel</a></p></footer>
+  <script src="../a11y-widget.js" data-statement="#about" data-color="#1f3a93"></script>
+</body>
+</html>
