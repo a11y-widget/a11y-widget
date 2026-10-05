@@ -13,7 +13,7 @@ Works with any Online Store 2.0 theme (Dawn and its derivatives) and older secti
    ```
 
 4. Edit the four `assign` lines at the top of the snippet to set your accent, text and indicator colours and the side of the screen. Shopify Inbox and most chat apps sit bottom-right, so `left` is usually the better choice.
-5. Optional: create a page at **Online Store → Pages** titled "Accessibility" (handle `accessibility`). The snippet links the panel to it automatically. Use the text in the main README's "Statement template" section as a starting point.
+5. Optional: create a page at **Online Store → Pages** titled "Accessibility" (handle `accessibility`). The snippet links the panel to it automatically. Start from the [accessibility statement template](../../templates/accessibility-statement.md).
 
 ## Notes
 

@@ -253,7 +253,7 @@ Tabs that hold active settings show a small dot, and so does the button. **Reset
 
 ## 6. The accessibility statement page
 
-The panel links to a statement page. Create one at the URL you pass in `data-statement`. A short statement is enough; adapt this:
+The panel links to a statement page. Create one at the URL you pass in `data-statement`. For a complete page with conformance status, known limitations, feedback and complaints sections, start from [templates/accessibility-statement.md](templates/accessibility-statement.md). A short statement is also enough; adapt this:
 
 > **Accessibility**
 >

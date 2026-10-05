@@ -45,5 +45,5 @@ If your tool strips custom attributes, set the options in a separate script inst
 
 - Most themes wrap content in `<main>`, `#content` or `#primary`; the widget detects all three for read-aloud and the page-structure list. Page builders (Elementor, Divi) without a `<main>` fall back to the whole page, which still works.
 - Themes that put `transform` or `filter` on `<body>` for page-transition effects break every `position: fixed` element, including this button. Disable that effect if the button scrolls with the page.
-- Create a page "Accessibility" with your statement and link it in the settings. See "Statement template" in the main README.
+- Create a page "Accessibility" with your statement and link it in the settings. Start from the [accessibility statement template](../../templates/accessibility-statement.md).
 - Add a sentence to your privacy policy: the accessibility panel script is delivered by the jsDelivr content delivery network and stores preferences in the visitor's browser only.

@@ -21,7 +21,7 @@ Wix allows site-wide code through **Custom Code**, which requires a Premium plan
 
 3. Name it "Accessibility panel", set **Add Code to Pages** to **All pages**, load it **once**, and choose **Body - end**. Click Apply.
 4. Publish the site. Custom Code runs on the live site only, not in the editor or preview.
-5. Optional: add a page called "Accessibility" at the URL `/accessibility` with your statement (see the main README's "Statement template"). Change `data-statement` if you use a different URL.
+5. Optional: add a page called "Accessibility" at the URL `/accessibility` with your statement (start from the [accessibility statement template](../../templates/accessibility-statement.md)). Change `data-statement` if you use a different URL.
 
 ## Colours
 
