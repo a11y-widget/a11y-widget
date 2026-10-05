@@ -4,7 +4,7 @@ Tags: accessibility, a11y, wcag, dyslexia, contrast, text size, screen reader
 Requires at least: 5.7
 Tested up to: 6.7
 Requires PHP: 7.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: MIT
 
 Adds an accessibility panel to every page: quick profiles, text size and spacing, contrast modes, reading aids, read-aloud and page structure. No tracking, no account.
@@ -42,6 +42,9 @@ Yes. Download `a11y-widget.js` from the GitHub releases, upload it to your site,
 Switch Position to the other side in Settings → Accessibility Panel.
 
 == Changelog ==
+
+= 1.2.2 =
+* Loads the panel from the page head (deferred), so it appears on themes that never call wp_footer(). The footer is kept as a fallback, and the panel is never added twice.
 
 = 1.2.1 =
 * Widget 1.1.3: read-aloud works on phones, text-size buttons keep their shape under theme button styles, panel fits narrow screens in every language.

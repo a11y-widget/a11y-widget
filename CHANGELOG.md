@@ -4,6 +4,8 @@ All notable changes to a11y-widget. Versions are semantic; the hosted `/v1/` URL
 
 ## Unreleased
 
+- WordPress plugin 1.2.2 prints the widget in `wp_head` (deferred, so it does not block rendering), with `wp_footer` as a fallback. Themes that never call `wp_footer()` previously showed no panel.
+
 ## 1.1.3 — 2026-10-04
 
 - Repository moved to the a11y-widget organization. Pinned jsDelivr URLs are now `https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@<version>/…`. File contents and integrity hashes are unchanged.

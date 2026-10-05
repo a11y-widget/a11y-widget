@@ -8,7 +8,7 @@ Two options. The plugin is the easier one and needs no theme editing.
 2. In WordPress go to **Plugins → Add New → Upload Plugin**, choose the zip, install and activate.
 3. Go to **Settings → Accessibility Panel**. Pick the accent, text and indicator colours, the side of the screen, and paste the URL of your accessibility statement page.
 
-The plugin prints a `window.A11yWidgetConfig` object and the deferred CDN script tag at `wp_footer`, on the public site only (never in wp-admin, the Customizer preview, feeds or embeds). Settings are stored in one option, `a11yw_settings`.
+The plugin prints a `window.A11yWidgetConfig` object and the deferred script tag in `wp_head` (with `wp_footer` as a fallback for themes that skip `wp_head()`; it is printed once), on the public site only (never in wp-admin, the Customizer preview, feeds or embeds). Settings are stored in one option, `a11yw_settings`.
 
 To self-host the script instead of using the CDN, add to your theme's `functions.php`:
 

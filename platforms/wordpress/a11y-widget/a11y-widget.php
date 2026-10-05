@@ -3,7 +3,7 @@
  * Plugin Name:       Accessibility Panel (a11y-widget)
  * Plugin URI:        https://github.com/a11y-widget/a11y-widget
  * Description:       Adds a self-hosted-style accessibility panel to every page: quick profiles, text size and spacing, contrast modes, reading aids, read-aloud and page structure. No tracking, no account. Settings → Accessibility Panel.
- * Version:           1.2.1
+ * Version:           1.2.2
  * Requires at least: 5.7
  * Requires PHP:      7.2
  * Author:            Sky Wei
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'A11YW_VERSION', '1.2.1' );
+define( 'A11YW_VERSION', '1.2.2' );
 define( 'A11YW_WIDGET_VERSION', '1.1.3' ); // widget release this plugin was tested with (used by the Pinned channel)
 define( 'A11YW_URL_AUTO', 'https://a11ywidget.vercel.app/v1/a11y-widget.js' ); // latest release, 5-minute browser cache
 define( 'A11YW_URL_PINNED', 'https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@' . A11YW_WIDGET_VERSION . '/a11y-widget.js' );
@@ -197,9 +197,15 @@ function a11yw_admin_assets( $hook ) {
 add_action( 'admin_enqueue_scripts', 'a11yw_admin_assets' );
 
 /**
- * Front-end: configuration object + script tag, just before </body>.
+ * Front-end: configuration object + deferred script tag, printed in <head>.
+ * Some themes never call wp_footer(), so the head is the primary spot and the footer
+ * only a fallback for themes that skip wp_head(). The static flag keeps it to one copy.
  */
 function a11yw_print_widget() {
+	static $printed = false;
+	if ( $printed ) {
+		return;
+	}
 	if ( is_admin() || is_feed() || is_embed() || ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) ) {
 		return;
 	}
@@ -222,6 +228,7 @@ function a11yw_print_widget() {
 		$config['main'] = $s['main'];
 	}
 
+	$printed = true;
 	echo '<script>window.A11yWidgetConfig=' . wp_json_encode( $config ) . ';</script>' . "\n";
 
 	// Site owners can self-host the file: add_filter( 'a11yw_script_url', fn() => '/wp-content/a11y-widget.js' );
@@ -236,4 +243,5 @@ function a11yw_print_widget() {
 		echo '<script src="' . esc_url( $url ) . '" defer></script>' . "\n";
 	}
 }
+add_action( 'wp_head', 'a11yw_print_widget', 99 );
 add_action( 'wp_footer', 'a11yw_print_widget', 99 );
