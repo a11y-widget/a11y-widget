@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Accessibility Panel (a11y-widget)
- * Plugin URI:        https://github.com/skychengtian/a11y-widget
+ * Plugin URI:        https://github.com/a11y-widget/a11y-widget
  * Description:       Adds a self-hosted-style accessibility panel to every page: quick profiles, text size and spacing, contrast modes, reading aids, read-aloud and page structure. No tracking, no account. Settings → Accessibility Panel.
  * Version:           1.2.0
  * Requires at least: 5.7
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'A11YW_VERSION', '1.2.0' );
 define( 'A11YW_WIDGET_VERSION', '1.1.2' ); // widget release this plugin was tested with (used by the Pinned channel)
 define( 'A11YW_URL_AUTO', 'https://a11ywidget.vercel.app/v1/a11y-widget.js' ); // latest release, 5-minute browser cache
-define( 'A11YW_URL_PINNED', 'https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@' . A11YW_WIDGET_VERSION . '/a11y-widget.js' );
+define( 'A11YW_URL_PINNED', 'https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@' . A11YW_WIDGET_VERSION . '/a11y-widget.js' );
 
 /**
  * Default settings.
@@ -109,7 +109,7 @@ function a11yw_render_settings_page() {
 		<h1><?php esc_html_e( 'Accessibility Panel', 'a11y-widget' ); ?></h1>
 		<p>
 			<?php esc_html_e( 'Adds an accessibility panel to every page of the site. Visitors can enlarge text, change contrast, enable reading aids, have the page read aloud and more. Their choices are saved only in their own browser.', 'a11y-widget' ); ?>
-			<a href="https://github.com/skychengtian/a11y-widget" target="_blank" rel="noopener"><?php esc_html_e( 'Documentation', 'a11y-widget' ); ?></a>
+			<a href="https://github.com/a11y-widget/a11y-widget" target="_blank" rel="noopener"><?php esc_html_e( 'Documentation', 'a11y-widget' ); ?></a>
 		</p>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'a11yw' ); ?>

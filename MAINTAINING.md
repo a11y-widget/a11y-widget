@@ -12,7 +12,7 @@ For whoever maintains this repository. Covers how the pieces fit together, how t
 | Stylesheet file | `a11y-widget.css` | Generated from the JS by `node build.js`. Never edit it by hand. It exists for strict-CSP sites that link CSS instead of allowing an injected `<style>`. |
 | Demo | `demo/index.html` | Served at the root of the Vercel host. |
 | Hosting | Vercel project `a11y-widget` (team et-digital) | Connected to this GitHub repository: every push to `main` deploys. Config in `vercel.json`. Domain: https://a11ywidget.vercel.app |
-| CDN | jsDelivr | Serves any tag: `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@<tag>/a11y-widget.js`. Nothing to configure. |
+| CDN | jsDelivr | Serves any tag: `https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@<tag>/a11y-widget.js`. Nothing to configure. |
 | WordPress plugin | `platforms/wordpress/a11y-widget/` + `a11y-widget.zip` | The zip is committed so it can be downloaded from the Vercel host. Rebuild it whenever the plugin source changes. |
 | Shopify snippet | `platforms/shopify/a11y-widget.liquid` | Reference snippet. The 1stbouquet theme vendors the JS into its `assets/` instead. |
 
@@ -21,8 +21,8 @@ For whoever maintains this repository. Covers how the pieces fit together, how t
 | URL | Browser cache | Updates |
 | --- | --- | --- |
 | `https://a11ywidget.vercel.app/v1/a11y-widget.js` | 5 minutes (`vercel.json`) | Automatic. Each deploy invalidates Vercel's edge, so visitors have a new release within about 5 minutes. `/v1/` is a rewrite to the root file; if a breaking 2.x is ever released, move the 1.x files into a `v1/` folder and point the rewrite there so `/v1/` keeps serving 1.x. |
-| `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/…` | 1 year, immutable | Never. Consumers bump the version (and integrity hashes) themselves. |
-| `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/…` | 7 days | Follows releases, but visitors can run an old build for a week. **Do not recommend.** This is what caused the "fix didn't arrive" confusion in 1.1.x. |
+| `https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.2/…` | 1 year, immutable | Never. Consumers bump the version (and integrity hashes) themselves. |
+| `https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1/…` | 7 days | Follows releases, but visitors can run an old build for a week. **Do not recommend.** This is what caused the "fix didn't arrive" confusion in 1.1.x. |
 
 ---
 
@@ -72,7 +72,7 @@ After pushing, verify:
 
 ```
 curl -sI https://a11ywidget.vercel.app/v1/a11y-widget.js | grep -i cache-control   # 200, max-age=300
-curl -s  https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.3/a11y-widget.js | shasum
+curl -s  https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.3/a11y-widget.js | shasum
 shasum a11y-widget.js                                                                # same hash
 ```
 
@@ -83,8 +83,8 @@ Semantic versions. Patch for fixes, minor for new options or modes, major only f
 ### Integrity hashes for pinned consumers
 
 ```
-curl -s https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.3/a11y-widget.js  | openssl dgst -sha384 -binary | openssl base64 -A
-curl -s https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.3/a11y-widget.css | openssl dgst -sha384 -binary | openssl base64 -A
+curl -s https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.3/a11y-widget.js  | openssl dgst -sha384 -binary | openssl base64 -A
+curl -s https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@1.1.3/a11y-widget.css | openssl dgst -sha384 -binary | openssl base64 -A
 ```
 
 Prefix each with `sha384-`.
@@ -97,7 +97,7 @@ Prefix each with `sha384-`.
 | --- | --- | --- | --- |
 | paimo.io | `PAiMo-io/paimo-landing`, `src/app/layout.tsx` | Vercel `/v1/` | Nothing. Updates automatically. |
 | pivclub.org | `PAiMo-io/pivclub`, `src/pages/_document.tsx` | Vercel `/v1/` | Nothing. Updates automatically. |
-| skytradingus.com | `skychengtian/skytrading` (generated from `~/Github/sky-trading-vercel/build.py`) | jsDelivr pinned, with integrity hashes, under a strict CSP | In `build.py`: bump the version in both the JS and CSS URLs and replace both `integrity` values. Run `python3 -B build.py`, copy `dist/` into the skytrading repo, commit, push. |
+| skytradingus.com | `a11y-widget/skytrading` (generated from `~/Github/sky-trading-vercel/build.py`) | jsDelivr pinned, with integrity hashes, under a strict CSP | In `build.py`: bump the version in both the JS and CSS URLs and replace both `integrity` values. Run `python3 -B build.py`, copy `dist/` into the skytrading repo, commit, push. |
 | 1stbouquet (Shopify) | `1stbouquet/1stbouquet.com`, `assets/a11y-widget.js` | Vendored file in the theme (Shopify CDN) | Copy the new `a11y-widget.js` over `assets/a11y-widget.js`, update the version note in `snippets/accessibility-panel.liquid`, open a PR. The theme's settings live under Theme settings → Accessibility panel. |
 | WordPress sites with the plugin | Plugin settings page | Vercel `/v1/` on the Automatic channel (default); jsDelivr pinned on the Pinned channel | Automatic: nothing. Pinned: the site updates the plugin. |
 | Wix / others on the `/v1/` URL | Site's custom code | Vercel `/v1/` | Nothing. |
@@ -111,7 +111,7 @@ Why the split: sites with a strict Content Security Policy need integrity hashes
 - **Vercel project**: `a11y-widget`, team `et-digital`, domains `a11ywidget.vercel.app`, `a11y-widget-five.vercel.app`, `a11y-widget-et-digital.vercel.app`. Static, no build step (`vercel.json`: `outputDirectory: "."`, `cleanUrls`, `/v1/:file` rewrite, root rewrite to `/demo`). Deployment Protection is **off** on purpose: the script must be publicly fetchable.
 - **Headers** (`vercel.json`): `.js`/`.css` get `Access-Control-Allow-Origin: *`, `Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400`, `nosniff`. Everything gets `X-Frame-Options: SAMEORIGIN` and a referrer policy.
 - **Git integration**: connected via `vercel git connect`. If it ever disconnects, `vercel deploy --prod --yes` from the repo root deploys manually.
-- **jsDelivr**: no account. Purge a path after a tag if needed: `curl https://purge.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js`. Pinned URLs never need purging.
+- **jsDelivr**: no account. Purge a path after a tag if needed: `curl https://purge.jsdelivr.net/gh/a11y-widget/a11y-widget@1/a11y-widget.js`. Pinned URLs never need purging.
 
 ---
 
