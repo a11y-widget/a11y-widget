@@ -1,0 +1,32 @@
+name: Check
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax check
+        run: node --check a11y-widget.js
+      - name: Stylesheet is in sync with the embedded CSS
+        run: |
+          node build.js
+          git diff --exit-code -- a11y-widget.css
+      - name: Plugin zip is in sync with the plugin source
+        run: |
+          cd platforms/wordpress
+          rm -f /tmp/plugin.zip && zip -qr /tmp/plugin.zip a11y-widget
+          mkdir -p /tmp/a /tmp/b && unzip -qo a11y-widget.zip -d /tmp/a && unzip -qo /tmp/plugin.zip -d /tmp/b
+          diff -r /tmp/a /tmp/b
+      - name: PHP syntax
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq php-cli >/dev/null
+          php -l platforms/wordpress/a11y-widget/a11y-widget.php
+      - name: Every label key exists in all four languages
+        run: node scripts/check-labels.js
