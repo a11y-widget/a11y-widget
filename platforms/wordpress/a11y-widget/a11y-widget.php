@@ -3,7 +3,7 @@
  * Plugin Name:       Accessibility Panel (a11y-widget)
  * Plugin URI:        https://github.com/a11y-widget/a11y-widget
  * Description:       Adds a self-hosted-style accessibility panel to every page: quick profiles, text size and spacing, contrast modes, reading aids, read-aloud and page structure. No tracking, no account. Settings → Accessibility Panel.
- * Version:           1.2.0
+ * Version:           1.2.1
  * Requires at least: 5.7
  * Requires PHP:      7.2
  * Author:            Sky Wei
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'A11YW_VERSION', '1.2.0' );
+define( 'A11YW_VERSION', '1.2.1' );
 define( 'A11YW_WIDGET_VERSION', '1.1.2' ); // widget release this plugin was tested with (used by the Pinned channel)
 define( 'A11YW_URL_AUTO', 'https://a11ywidget.vercel.app/v1/a11y-widget.js' ); // latest release, 5-minute browser cache
 define( 'A11YW_URL_PINNED', 'https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@' . A11YW_WIDGET_VERSION . '/a11y-widget.js' );

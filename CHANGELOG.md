@@ -4,9 +4,11 @@ All notable changes to a11y-widget. Versions are semantic; the hosted `/v1/` URL
 
 ## Unreleased
 
+- Repository moved to the a11y-widget organization. Pinned jsDelivr URLs are now `https://cdn.jsdelivr.net/gh/a11y-widget/a11y-widget@<version>/…`. File contents and integrity hashes are unchanged.
 - Read-aloud works on phones. On iOS, speech is unlocked inside the tap, so the first paragraph is no longer ignored while voices load. Each utterance is kept referenced so mobile engines keep advancing to the next paragraph. Callbacks from cancelled utterances are ignored instead of stopping the reading. Android, which has no working pause, pauses by cancelling and resumes from the current paragraph.
 - The text-size buttons (A−, A+) reset padding and appearance, so host-site button styles can no longer stretch them or push the label out of the circle.
 - On screens 480px and narrower, tabs and segmented buttons size to their labels, with tighter spacing below 360px, so longer translations (Spanish "Herramientas", "Derecha") stay inside the panel.
+- WordPress plugin 1.2.1 bundles widget 1.1.3 and links to the new repository.
 
 ## 1.1.2 — 2026-10-04
 
