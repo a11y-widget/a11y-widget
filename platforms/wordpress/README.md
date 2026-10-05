@@ -24,7 +24,7 @@ If you already use a header/footer code plugin such as WPCode, or a theme with a
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js"
+  src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js"
   defer
   data-color="#1f3a93"
   data-ink="#262b33"
@@ -38,7 +38,7 @@ If your tool strips custom attributes, set the options in a separate script inst
 
 ```html
 <script>window.A11yWidgetConfig = { color: '#1f3a93', position: 'right', statement: '/accessibility/' };</script>
-<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js" defer></script>
 ```
 
 ## Notes

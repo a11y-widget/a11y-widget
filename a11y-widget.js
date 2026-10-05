@@ -73,7 +73,7 @@
       color: 'Color', contrast: 'Contrast', contrastnone: 'Default', contrasthigh: 'High', contrastdark: 'Dark', contrastinvert: 'Invert',
       saturation: 'Saturation', satnone: 'Default', satgray: 'Grayscale', sathigh: 'High',
       aids: 'Reading aids', links: 'Highlight links', headings: 'Highlight headings', focusRing: 'Highlight focus', cursor: 'Big cursor', guide: 'Reading guide', mask: 'Reading mask', motion: 'Stop animations', images: 'Hide images', mute: 'Mute sounds',
-      tools: 'Tools', read: 'Read page aloud', pause: 'Pause', resume: 'Resume', stop: 'Stop reading', readUnsupported: 'Read aloud is not available in this browser.',
+      tools: 'Tools', read: 'Read page aloud', pause: 'Pause', resume: 'Resume', stop: 'Stop reading', readUnsupported: 'Read aloud is not available in this browser.', noVoice: 'No {lang} voice is installed in this browser, so the page cannot be read aloud correctly. Add a {lang} voice in your system or browser settings, then try again.', langName: 'Chinese',
       structure: 'Page structure', headingsList: 'Headings', landmarks: 'Landmarks', lmHeader: 'Header', lmNav: 'Navigation', lmMain: 'Main content', lmAside: 'Sidebar', lmFooter: 'Footer', lmSearch: 'Search', back: 'Back to options', noHeadings: 'No headings found on this page.',
       reset: 'Reset all', moveLeft: 'Move to left', moveRight: 'Move to right', hide: 'Hide panel', hideNote: 'Panel hidden for this visit. It returns on your next visit or with Alt + Shift + A.',
       shortcut: 'Keyboard shortcut: Alt + Shift + A', statement: 'Accessibility statement', on: 'on', off: 'off', profileOn: 'profile applied', profileOff: 'profile cleared' },
@@ -87,7 +87,7 @@
       color: '颜色', contrast: '对比度', contrastnone: '默认', contrasthigh: '高对比', contrastdark: '深色', contrastinvert: '反转',
       saturation: '饱和度', satnone: '默认', satgray: '灰度', sathigh: '高',
       aids: '阅读辅助', links: '突出显示链接', headings: '突出显示标题', focusRing: '突出显示焦点', cursor: '大号光标', guide: '阅读标尺', mask: '阅读遮罩', motion: '停止动画', images: '隐藏图片', mute: '静音',
-      tools: '工具', read: '朗读页面', pause: '暂停', resume: '继续', stop: '停止朗读', readUnsupported: '此浏览器不支持朗读功能。',
+      tools: '工具', read: '朗读页面', pause: '暂停', resume: '继续', stop: '停止朗读', readUnsupported: '此浏览器不支持朗读功能。', noVoice: '此浏览器未安装{lang}语音，无法正确朗读本页面。请在系统或浏览器设置中添加{lang}语音后重试。', langName: '中文',
       structure: '页面结构', headingsList: '标题', landmarks: '页面区域', lmHeader: '页眉', lmNav: '导航', lmMain: '主要内容', lmAside: '侧栏', lmFooter: '页脚', lmSearch: '搜索', back: '返回选项', noHeadings: '本页未找到标题。',
       reset: '全部重置', moveLeft: '移至左侧', moveRight: '移至右侧', hide: '隐藏面板', hideNote: '本次访问期间已隐藏面板。下次访问或按 Alt + Shift + A 可重新显示。',
       shortcut: '键盘快捷键：Alt + Shift + A', statement: '无障碍声明', on: '已开启', off: '已关闭', profileOn: '方案已应用', profileOff: '方案已取消' },
@@ -101,7 +101,7 @@
       color: 'Color', contrast: 'Contraste', contrastnone: 'Normal', contrasthigh: 'Alto', contrastdark: 'Oscuro', contrastinvert: 'Invertir',
       saturation: 'Saturación', satnone: 'Normal', satgray: 'Escala de grises', sathigh: 'Alta',
       aids: 'Ayudas de lectura', links: 'Resaltar enlaces', headings: 'Resaltar títulos', focusRing: 'Resaltar el foco', cursor: 'Cursor grande', guide: 'Guía de lectura', mask: 'Máscara de lectura', motion: 'Detener animaciones', images: 'Ocultar imágenes', mute: 'Silenciar sonidos',
-      tools: 'Herramientas', read: 'Leer la página en voz alta', pause: 'Pausar', resume: 'Reanudar', stop: 'Detener la lectura', readUnsupported: 'La lectura en voz alta no está disponible en este navegador.',
+      tools: 'Herramientas', read: 'Leer la página en voz alta', pause: 'Pausar', resume: 'Reanudar', stop: 'Detener la lectura', readUnsupported: 'La lectura en voz alta no está disponible en este navegador.', noVoice: 'Este navegador no tiene instalada una voz en {lang}, por lo que la página no puede leerse correctamente. Añade una voz en {lang} en los ajustes del sistema o del navegador e inténtalo de nuevo.', langName: 'español',
       structure: 'Estructura de la página', headingsList: 'Títulos', landmarks: 'Regiones', lmHeader: 'Encabezado', lmNav: 'Navegación', lmMain: 'Contenido principal', lmAside: 'Barra lateral', lmFooter: 'Pie de página', lmSearch: 'Búsqueda', back: 'Volver a las opciones', noHeadings: 'No se encontraron títulos en esta página.',
       reset: 'Restablecer todo', moveLeft: 'Mover a la izquierda', moveRight: 'Mover a la derecha', hide: 'Ocultar panel', hideNote: 'Panel oculto durante esta visita. Volverá en la próxima visita o con Alt + Mayús + A.',
       shortcut: 'Atajo de teclado: Alt + Mayús + A', statement: 'Declaración de accesibilidad', on: 'activado', off: 'desactivado', profileOn: 'perfil aplicado', profileOff: 'perfil desactivado' },
@@ -115,7 +115,7 @@
       color: 'Màu sắc', contrast: 'Độ tương phản', contrastnone: 'Mặc định', contrasthigh: 'Cao', contrastdark: 'Tối', contrastinvert: 'Đảo màu',
       saturation: 'Độ bão hòa', satnone: 'Mặc định', satgray: 'Thang xám', sathigh: 'Cao',
       aids: 'Hỗ trợ đọc', links: 'Làm nổi liên kết', headings: 'Làm nổi tiêu đề', focusRing: 'Làm nổi tiêu điểm', cursor: 'Con trỏ lớn', guide: 'Thước đọc', mask: 'Mặt nạ đọc', motion: 'Dừng hoạt ảnh', images: 'Ẩn hình ảnh', mute: 'Tắt âm thanh',
-      tools: 'Công cụ', read: 'Đọc trang thành tiếng', pause: 'Tạm dừng', resume: 'Tiếp tục', stop: 'Dừng đọc', readUnsupported: 'Trình duyệt này không hỗ trợ đọc thành tiếng.',
+      tools: 'Công cụ', read: 'Đọc trang thành tiếng', pause: 'Tạm dừng', resume: 'Tiếp tục', stop: 'Dừng đọc', readUnsupported: 'Trình duyệt này không hỗ trợ đọc thành tiếng.', noVoice: 'Trình duyệt này chưa cài giọng đọc {lang}, nên không thể đọc trang đúng cách. Hãy thêm giọng đọc {lang} trong cài đặt hệ thống hoặc trình duyệt rồi thử lại.', langName: 'tiếng Việt',
       structure: 'Cấu trúc trang', headingsList: 'Tiêu đề', landmarks: 'Vùng trang', lmHeader: 'Đầu trang', lmNav: 'Điều hướng', lmMain: 'Nội dung chính', lmAside: 'Thanh bên', lmFooter: 'Chân trang', lmSearch: 'Tìm kiếm', back: 'Quay lại tùy chọn', noHeadings: 'Không tìm thấy tiêu đề nào trên trang này.',
       reset: 'Đặt lại tất cả', moveLeft: 'Chuyển sang trái', moveRight: 'Chuyển sang phải', hide: 'Ẩn bảng', hideNote: 'Bảng đã ẩn trong lần truy cập này. Sẽ hiện lại ở lần truy cập sau hoặc khi nhấn Alt + Shift + A.',
       shortcut: 'Phím tắt: Alt + Shift + A', statement: 'Tuyên bố trợ năng', on: 'bật', off: 'tắt', profileOn: 'đã áp dụng hồ sơ', profileOff: 'đã bỏ hồ sơ' }
@@ -260,6 +260,8 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
 .a11yw-option:disabled{opacity:.5;cursor:default}
 .a11yw-option[hidden]{display:none!important}
 .a11yw-note{font-size:12px;color:var(--a11yw-text2);margin:4px 4px 0;line-height:1.5}
+.a11yw-voice-note{margin:0;padding:10px 14px;border-radius:14px;background:#fff6e5;color:#6b4a00;border:1px solid #f0d9a8;font-size:13px}
+.a11yw-voice-note[hidden]{display:none!important}
 .a11yw-list{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:4px}
 .a11yw-list li{margin:0;padding:0}
 .a11yw-link{display:block;width:100%;min-height:40px;padding:8px 16px;border:1px solid var(--a11yw-line);background:var(--a11yw-grey);color:var(--a11yw-primary);font-size:14px;font-weight:500;line-height:1.3;cursor:pointer;border-radius:999px;transition:background .2s}
@@ -498,7 +500,21 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
     global.speechSynthesis.cancel();
     speech.items = readable(); speech.i = 0; speech.active = true;
     ui.readLabel.textContent = t.stop; ui.read.setAttribute('aria-pressed', 'true'); ui.pause.hidden = false; ui.pause.textContent = t.pause;
-    whenVoicesReady(function () { if (speech.active) speakNext(); });
+    whenVoicesReady(function () {
+      if (!speech.active) return;
+      var pageLang = speechLang(root.getAttribute('lang') || t.lang);
+      var voices = global.speechSynthesis.getVoices() || [];
+      // If the engine lists voices but none for the page language, it would read with its
+      // default voice (often English). Tell the visitor instead of producing gibberish.
+      if (voices.length && !pickVoice(pageLang) && pageLang.split('-')[0] !== 'en') {
+        stopReading();
+        var msg = t.noVoice.replace(/\{lang\}/g, t.langName);
+        ui.voiceNote.textContent = msg; ui.voiceNote.hidden = false; announce(msg);
+        return;
+      }
+      ui.voiceNote.hidden = true;
+      speakNext();
+    });
   }
   function stopReading() {
     speech.active = false; mark(null);
@@ -593,12 +609,13 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
     var readLabel = el('span', { text: t.read });
     var read = el('button', { type: 'button', 'class': 'a11yw-option a11yw-tool', 'aria-pressed': 'false' }, [icon('read'), readLabel]);
     var pause = el('button', { type: 'button', 'class': 'a11yw-option a11yw-tool', text: t.pause, hidden: '' });
+    var voiceNote = el('p', { 'class': 'a11yw-note a11yw-voice-note', role: 'status', hidden: '' });
     if (canSpeak) { read.addEventListener('click', function () { speech.active ? stopReading() : startReading(); }); pause.addEventListener('click', togglePause); }
     else { read.disabled = true; read.setAttribute('aria-disabled', 'true'); }
     var structureBtn = el('button', { type: 'button', 'class': 'a11yw-option a11yw-tool', 'aria-expanded': 'false', 'aria-controls': 'a11yw-structure' }, [icon('structure'), el('span', { text: t.structure })]);
     var side = el('button', { type: 'button', 'class': 'a11yw-reset', text: t.moveLeft });
     var hide = el('button', { type: 'button', 'class': 'a11yw-reset', text: t.hide });
-    var toolsPanel = el('div', { 'class': 'a11yw-toggles' }, [read, pause, canSpeak ? null : el('p', { 'class': 'a11yw-note', text: t.readUnsupported }), structureBtn,
+    var toolsPanel = el('div', { 'class': 'a11yw-toggles' }, [read, pause, voiceNote, canSpeak ? null : el('p', { 'class': 'a11yw-note', text: t.readUnsupported }), structureBtn,
       el('div', { 'class': 'a11yw-foot-row', style: '' }, [side, hide]),
       CFG.shortcut ? el('p', { 'class': 'a11yw-note', text: t.shortcut }) : null]);
 
@@ -673,7 +690,7 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
     wrap.style.setProperty('--a11yw-z', CFG.z);
     document.body.appendChild(wrap);
     ui.wrap = wrap; ui.toggle = toggle; ui.panel = panel; ui.title = title; ui.smaller = smaller; ui.larger = larger; ui.output = output;
-    ui.live = live; ui.read = read; ui.readLabel = readLabel; ui.pause = pause; ui.side = side;
+    ui.live = live; ui.read = read; ui.readLabel = readLabel; ui.pause = pause; ui.voiceNote = voiceNote; ui.side = side;
     makeOverlays();
     selectTab(current, false);
 

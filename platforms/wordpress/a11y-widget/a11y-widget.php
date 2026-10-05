@@ -3,7 +3,7 @@
  * Plugin Name:       Accessibility Panel (a11y-widget)
  * Plugin URI:        https://github.com/skychengtian/a11y-widget
  * Description:       Adds a self-hosted-style accessibility panel to every page: quick profiles, text size and spacing, contrast modes, reading aids, read-aloud and page structure. No tracking, no account. Settings → Accessibility Panel.
- * Version:           1.1.0
+ * Version:           1.1.2
  * Requires at least: 5.7
  * Requires PHP:      7.2
  * Author:            Sky Wei
@@ -15,8 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'A11YW_VERSION', '1.1.0' );
-define( 'A11YW_CDN', 'https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js' );
+define( 'A11YW_VERSION', '1.1.2' );
+// Pinned to the plugin version: each release has its own URL, so browser caches never serve a stale build.
+define( 'A11YW_CDN', 'https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@' . A11YW_VERSION . '/a11y-widget.js' );
 
 /**
  * Default settings.

@@ -127,6 +127,8 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
 .a11yw-option:disabled{opacity:.5;cursor:default}
 .a11yw-option[hidden]{display:none!important}
 .a11yw-note{font-size:12px;color:var(--a11yw-text2);margin:4px 4px 0;line-height:1.5}
+.a11yw-voice-note{margin:0;padding:10px 14px;border-radius:14px;background:#fff6e5;color:#6b4a00;border:1px solid #f0d9a8;font-size:13px}
+.a11yw-voice-note[hidden]{display:none!important}
 .a11yw-list{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:4px}
 .a11yw-list li{margin:0;padding:0}
 .a11yw-link{display:block;width:100%;min-height:40px;padding:8px 16px;border:1px solid var(--a11yw-line);background:var(--a11yw-grey);color:var(--a11yw-primary);font-size:14px;font-weight:500;line-height:1.3;cursor:pointer;border-radius:999px;transition:background .2s}

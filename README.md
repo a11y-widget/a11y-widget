@@ -5,14 +5,14 @@ A standalone accessibility panel for any website. One script, no dependencies, n
 **New here? Read [INSTALL.md](INSTALL.md)**: supported platforms, step-by-step installation for WordPress, Shopify, Wix, Next.js and others, how visitors use the panel, the statement template, privacy wording and troubleshooting.
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js" data-statement="/accessibility" data-color="#1f3a93"></script>
+<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js" data-statement="/accessibility" data-color="#1f3a93"></script>
 ```
 
 That is the whole installation. The file is served by the jsDelivr CDN straight from this repository's release tags:
 
 | URL | Behaviour |
 | --- | --- |
-| `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js` | Latest 1.x release. New releases arrive automatically (jsDelivr caches ranges for up to 7 days). |
+| `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js` | **Recommended.** Pinned to one release; a new release means a new URL, so fixes reach every visitor on their next page load. |
 | `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.0.0/a11y-widget.js` | Pinned to one release. Use with an `integrity` hash on sites with a strict Content Security Policy. |
 | `https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.css` | The stylesheet, for the `data-css="off"` mode. |
 
@@ -61,7 +61,7 @@ Configuration can also be given as an object before the script loads, with the s
 
 ```html
 <script>window.A11yWidgetConfig = { statement: '/accessibility', color: '#1f3a93', position: 'left' };</script>
-<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js" defer></script>
 ```
 
 A small JavaScript API is exposed as `window.A11yWidget` with `open(tab?)`, `close()`, `toggle()`, `reset()`, `get()`, `set(partialState)` and `destroy()`. `open('reading')` opens the panel on a given tab (`profiles`, `text`, `color`, `reading`, `tools`).
@@ -100,7 +100,7 @@ jsDelivr picks the tag up within minutes. Sites on the `@1` range update automat
 Embed snippets for common platforms:
 
 - **Plain HTML**: the script tag above, before `</body>`.
-- **Next.js**: `<Script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1/a11y-widget.js" strategy="beforeInteractive" data-statement="/accessibility" />` in the root layout, and `suppressHydrationWarning` on `<html>`.
+- **Next.js**: `<Script src="https://cdn.jsdelivr.net/gh/skychengtian/a11y-widget@1.1.2/a11y-widget.js" strategy="beforeInteractive" data-statement="/accessibility" />` in the root layout, and `suppressHydrationWarning` on `<html>`.
 - **WordPress, Shopify, Webflow, Squarespace, Wix**: paste the script tag into the site's custom code / footer scripts setting.
 - **No code access**: a Google Tag Manager "Custom HTML" tag containing the script tag.
 
