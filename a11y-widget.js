@@ -133,6 +133,7 @@
   var CSS = /*A11YW_CSS_START*/`
 /* a11y-widget styles. Mode classes live on <html>; the panel uses fixed colours so it stays legible in every mode. */
 html.a11yw-text-1{font-size:110%!important}html.a11yw-text-2{font-size:120%!important}html.a11yw-text-3{font-size:135%!important}html.a11yw-text-4{font-size:150%!important}html.a11yw-text-5{font-size:175%!important}
+html[class*="a11yw-text-"] body{overflow-wrap:break-word}
 html.a11yw-spacing-1 body :not(.a11yw,.a11yw *){line-height:1.7!important;letter-spacing:.04em!important;word-spacing:.1em!important}
 html.a11yw-spacing-2 body :not(.a11yw,.a11yw *){line-height:1.9!important;letter-spacing:.12em!important;word-spacing:.16em!important}
 html.a11yw-spacing-2 body p{margin-bottom:2em!important}
@@ -141,17 +142,19 @@ html.a11yw-align-left body :not(.a11yw,.a11yw *){text-align:left!important}
 html.a11yw-align-center body :not(.a11yw,.a11yw *){text-align:center!important}
 html.a11yw-align-right body :not(.a11yw,.a11yw *){text-align:right!important}
 html.a11yw-contrast-high body{background:#fff!important;color:#000!important}
-html.a11yw-contrast-high body :not(.a11yw,.a11yw *,img,svg,svg *,video,picture,canvas,iframe){color:#000!important;background-color:#fff!important;background-image:none!important;border-color:#000!important;text-shadow:none!important;box-shadow:none!important;opacity:1!important}
+html.a11yw-contrast-high body :not(.a11yw,.a11yw *,img,svg,svg *,video,picture,canvas,iframe){color:#000!important;background-color:#fff!important;background-image:none!important;border-color:#000!important;text-shadow:none!important;box-shadow:none!important}
 html.a11yw-contrast-high body a:not(.a11yw a){color:#0000cc!important;text-decoration:underline!important}
 html.a11yw-contrast-high body :is(button,[role=button],input,select,textarea):not(.a11yw *){border:2px solid #000!important}
 html.a11yw-contrast-high body svg:not(.a11yw svg){color:#000!important}
+html.a11yw-contrast-high body :is(input[type=radio],input[type=checkbox]):checked+:is(span,label):not(.a11yw *){background-color:#000!important;color:#fff!important}
 html.a11yw-contrast-dark{background:#0b0f14!important}
 html.a11yw-contrast-dark body{background:#0b0f14!important;color:#f2f4f7!important}
 html.a11yw-contrast-dark body :not(.a11yw,.a11yw *,img,svg,svg *,video,picture,canvas,iframe){color:#f2f4f7!important;background-color:#0b0f14!important;background-image:none!important;border-color:#4a5663!important;text-shadow:none!important;box-shadow:none!important}
 html.a11yw-contrast-dark body a:not(.a11yw a){color:#9cc7ff!important;text-decoration:underline!important}
 html.a11yw-contrast-dark body :is(button,[role=button],input,select,textarea):not(.a11yw *){border:2px solid #9cc7ff!important}
 html.a11yw-contrast-dark body svg:not(.a11yw svg){color:#f2f4f7!important}
-html.a11yw-contrast-dark body img:not(.a11yw img){background:#fff}
+html.a11yw-contrast-dark body :is(input[type=radio],input[type=checkbox]):checked+:is(span,label):not(.a11yw *){background-color:#9cc7ff!important;color:#0b0f14!important}
+html.a11yw-contrast-dark body img:not(.a11yw img,header img,nav img,footer img,[role=banner] img,[class*=logo] img,img[class*=logo],img[src*=logo]){background:#fff}
 html.a11yw-contrast-invert{background:#fff;filter:invert(1) hue-rotate(180deg)}
 html.a11yw-contrast-invert :is(img,video,picture,canvas,iframe):not(.a11yw *),html.a11yw-contrast-invert .a11yw{filter:invert(1) hue-rotate(180deg)}
 html.a11yw-sat-gray{filter:grayscale(1)}html.a11yw-sat-high{filter:saturate(2.2)}
@@ -306,6 +309,63 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
   function isOn(k) { return state.on.indexOf(k) > -1; }
   function isDefault() { var d = defaults(); return state.size === d.size && state.spacing === d.spacing && state.contrast === d.contrast && state.sat === d.sat && state.align === d.align && state.on.length === 0; }
 
+  // The text-size classes enlarge the root font size, which only works on sites that size text in rem/em/%.
+  // When a sample paragraph does not grow (text sized in px), every element's px font size and line height
+  // are scaled inline instead, and <html> gets a11yw-px. Text grows; the layout keeps its widths.
+  var px = { list: null, cur: 1 };
+  var SKIP_TAGS = /^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE|LINK|META|BR|IMG|VIDEO|AUDIO|CANVAS|IFRAME|SOURCE|PICTURE|svg|path|g|use|circle|rect|line|polyline|polygon|ellipse|defs)$/;
+  function withoutTextClass(fn) {
+    var on = SIZES.map(function (s, i) { return P + '-text-' + i; }).filter(function (c) { return root.classList.contains(c); });
+    on.forEach(function (c) { root.classList.remove(c); });
+    var r = fn();
+    on.forEach(function (c) { root.classList.add(c); });
+    return r;
+  }
+  function pxCapture() {
+    px.list = withoutTextClass(function () {
+      var out = [], all = [document.body].concat(Array.prototype.slice.call(document.body.getElementsByTagName('*')));
+      for (var i = 0; i < all.length; i++) {
+        var e = all[i];
+        if (SKIP_TAGS.test(e.tagName) || e.closest('.' + P) || /(^|\s)a11yw-/.test(typeof e.className === 'string' ? e.className : '')) continue;
+        var c = getComputedStyle(e), fs = parseFloat(c.fontSize);
+        if (!fs) continue;
+        var s = e.style;
+        out.push([e, fs, /px$/.test(c.lineHeight) ? parseFloat(c.lineHeight) : 0, s.getPropertyValue('font-size'), s.getPropertyPriority('font-size'), s.getPropertyValue('line-height'), s.getPropertyPriority('line-height')]);
+      }
+      return out;
+    });
+  }
+  function pxScale(f) {
+    if (f === px.cur) return;
+    if (!px.list) { if (f === 1) return; pxCapture(); }
+    px.cur = f;
+    var put = function (s, p, v, pr) { if (v) s.setProperty(p, v, pr); else s.removeProperty(p); };
+    px.list.forEach(function (x) {
+      var s = x[0].style;
+      if (f === 1) { put(s, 'font-size', x[3], x[4]); put(s, 'line-height', x[5], x[6]); return; }
+      s.setProperty('font-size', (x[1] * f).toFixed(1) + 'px', 'important');
+      if (x[2]) s.setProperty('line-height', (x[2] * f).toFixed(1) + 'px', 'important');
+    });
+    if (f === 1) px.list = null; // capture again next time: the page may have changed
+  }
+  function textFallback() {
+    var i = SIZES.indexOf(state.size);
+    if (i < 1 || !document.body) { root.classList.remove(P + '-px'); pxScale(1); return; }
+    if (!root.classList.contains(P + '-px')) {
+      var pick = function (scope) {
+        return Array.prototype.filter.call(scope.querySelectorAll('p,li,td,dd'), function (n) {
+          return !n.closest('.' + P) && n.offsetParent !== null && n.textContent.trim().length > 20;
+        })[0];
+      };
+      var probe = pick(mainEl()) || pick(document.body);
+      if (!probe) return;
+      var base = withoutTextClass(function () { return parseFloat(getComputedStyle(probe).fontSize); });
+      if (parseFloat(getComputedStyle(probe).fontSize) >= base * 1.04) return; // root font size works here
+      root.classList.add(P + '-px');
+    }
+    pxScale(state.size / 100);
+  }
+
   function apply() {
     SIZES.forEach(function (s, i) { root.classList.toggle(P + '-text-' + i, i > 0 && s === state.size); });
     SPACING.forEach(function (v) { root.classList.toggle(P + '-spacing-' + v, v > 0 && v === state.spacing); });
@@ -313,6 +373,7 @@ html.a11yw-active .a11yw-toggle::after{content:'';position:absolute;top:0;right:
     SAT.forEach(function (v) { root.classList.toggle(P + '-sat-' + v, v !== 'none' && v === state.sat); });
     ALIGN.forEach(function (v) { root.classList.toggle(P + '-align-' + v, v !== 'none' && v === state.align); });
     TOGGLES.forEach(function (k) { root.classList.toggle(P + '-' + k, isOn(k)); });
+    textFallback();
     root.classList.toggle(P + '-active', !isDefault());
     mediaControl();
     if (overlays) overlays.update();

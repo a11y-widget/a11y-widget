@@ -1,5 +1,6 @@
 /* a11y-widget styles. Mode classes live on <html>; the panel uses fixed colours so it stays legible in every mode. */
 html.a11yw-text-1{font-size:110%!important}html.a11yw-text-2{font-size:120%!important}html.a11yw-text-3{font-size:135%!important}html.a11yw-text-4{font-size:150%!important}html.a11yw-text-5{font-size:175%!important}
+html[class*="a11yw-text-"] body{overflow-wrap:break-word}
 html.a11yw-spacing-1 body :not(.a11yw,.a11yw *){line-height:1.7!important;letter-spacing:.04em!important;word-spacing:.1em!important}
 html.a11yw-spacing-2 body :not(.a11yw,.a11yw *){line-height:1.9!important;letter-spacing:.12em!important;word-spacing:.16em!important}
 html.a11yw-spacing-2 body p{margin-bottom:2em!important}
@@ -8,17 +9,19 @@ html.a11yw-align-left body :not(.a11yw,.a11yw *){text-align:left!important}
 html.a11yw-align-center body :not(.a11yw,.a11yw *){text-align:center!important}
 html.a11yw-align-right body :not(.a11yw,.a11yw *){text-align:right!important}
 html.a11yw-contrast-high body{background:#fff!important;color:#000!important}
-html.a11yw-contrast-high body :not(.a11yw,.a11yw *,img,svg,svg *,video,picture,canvas,iframe){color:#000!important;background-color:#fff!important;background-image:none!important;border-color:#000!important;text-shadow:none!important;box-shadow:none!important;opacity:1!important}
+html.a11yw-contrast-high body :not(.a11yw,.a11yw *,img,svg,svg *,video,picture,canvas,iframe){color:#000!important;background-color:#fff!important;background-image:none!important;border-color:#000!important;text-shadow:none!important;box-shadow:none!important}
 html.a11yw-contrast-high body a:not(.a11yw a){color:#0000cc!important;text-decoration:underline!important}
 html.a11yw-contrast-high body :is(button,[role=button],input,select,textarea):not(.a11yw *){border:2px solid #000!important}
 html.a11yw-contrast-high body svg:not(.a11yw svg){color:#000!important}
+html.a11yw-contrast-high body :is(input[type=radio],input[type=checkbox]):checked+:is(span,label):not(.a11yw *){background-color:#000!important;color:#fff!important}
 html.a11yw-contrast-dark{background:#0b0f14!important}
 html.a11yw-contrast-dark body{background:#0b0f14!important;color:#f2f4f7!important}
 html.a11yw-contrast-dark body :not(.a11yw,.a11yw *,img,svg,svg *,video,picture,canvas,iframe){color:#f2f4f7!important;background-color:#0b0f14!important;background-image:none!important;border-color:#4a5663!important;text-shadow:none!important;box-shadow:none!important}
 html.a11yw-contrast-dark body a:not(.a11yw a){color:#9cc7ff!important;text-decoration:underline!important}
 html.a11yw-contrast-dark body :is(button,[role=button],input,select,textarea):not(.a11yw *){border:2px solid #9cc7ff!important}
 html.a11yw-contrast-dark body svg:not(.a11yw svg){color:#f2f4f7!important}
-html.a11yw-contrast-dark body img:not(.a11yw img){background:#fff}
+html.a11yw-contrast-dark body :is(input[type=radio],input[type=checkbox]):checked+:is(span,label):not(.a11yw *){background-color:#9cc7ff!important;color:#0b0f14!important}
+html.a11yw-contrast-dark body img:not(.a11yw img,header img,nav img,footer img,[role=banner] img,[class*=logo] img,img[class*=logo],img[src*=logo]){background:#fff}
 html.a11yw-contrast-invert{background:#fff;filter:invert(1) hue-rotate(180deg)}
 html.a11yw-contrast-invert :is(img,video,picture,canvas,iframe):not(.a11yw *),html.a11yw-contrast-invert .a11yw{filter:invert(1) hue-rotate(180deg)}
 html.a11yw-sat-gray{filter:grayscale(1)}html.a11yw-sat-high{filter:saturate(2.2)}
