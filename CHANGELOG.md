@@ -4,6 +4,11 @@ All notable changes to a11y-widget. Versions are semantic; the hosted `/v1/` URL
 
 ## Unreleased
 
+- Text size works on sites that size text in px. The widget checks whether a paragraph actually grew; if not, it scales each element's px font size and line height inline (class `a11yw-px` on `<html>`). Only text grows; layout widths stay, so nothing is pushed off the screen on phones. Long words and URLs wrap at larger sizes (`overflow-wrap: break-word`).
+- High contrast no longer forces `opacity:1` on every element. Elements a site hides with `opacity:0` (menu backdrops, custom radio inputs) became white boxes, and a full-screen menu backdrop blanked the whole page.
+- High contrast and dark mode keep the selected radio or checkbox choice visible when a site shows it only by colour (`input:checked + span/label`).
+- Dark mode no longer puts a white background behind logos (images in header, nav, footer, or with "logo" in the class or file name), which turned transparent white logos into white boxes.
+
 - WordPress plugin 1.2.2 prints the widget in `wp_head` (deferred, so it does not block rendering), with `wp_footer` as a fallback. Themes that never call `wp_footer()` previously showed no panel.
 
 ## 1.1.3 — 2026-10-04
